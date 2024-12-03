@@ -1,5 +1,5 @@
 const swaggerJSDoc = require('swagger-jsdoc');
-const site_URL = '';
+let site_URL = 'localhost';
 
 switch (process.env.NODE_ENV) {
     case 'development':
