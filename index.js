@@ -3,7 +3,8 @@ require('dotenv').config();
 const jokeRouter = require('./routes/jokes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./init/swaggerConfig');
-const { initializeDatabase } = require('./init/dbInit');
+const initializeDatabase = require('./init/dbInit');
+console.log(typeof initializeDatabase);
 
 const app = express();
 app.use(express.json());
@@ -22,7 +23,7 @@ app.get('/', (req, res) => {
 
 
 if (require.main === module) {
-    const PORT = 3000;
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
         console.log(`Serveur en écoute sur le port ${PORT}`);
     });
