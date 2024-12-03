@@ -23,6 +23,9 @@ const swaggerDocs = swaggerJSDoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use('/jokes', jokeRouter);
+app.get('/', (req, res) => {
+    res.send('API Online');
+});
 
 module.exports = app;
 
