@@ -3,23 +3,12 @@ require('dotenv').config();
 const jokeRouter = require('./routes/jokes');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const swaggerDocs = require('./config/swaggerConfig');
 
 const app = express();
 app.use(express.json());
 
-const swaggerOptions = {
-    definition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'API Blagues Carambar',
-            version: '1.0.0',
-            description: 'Une API pour gérer et afficher des blagues Carambar.'
-        },
-        servers: [{ url: process.env.SITE_URL_PROD }]
-    },
-    apis: ['./routes/jokes.js'],
-};
-const swaggerDocs = swaggerJSDoc(swaggerOptions);
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use('/jokes', jokeRouter);
@@ -27,7 +16,10 @@ app.get('/', (req, res) => {
     res.send('API Online');
 });
 
-module.exports = app;
+(async () => {
+    await initializeDatabase();
+})();
+
 
 if (require.main === module) {
     const PORT = 3000;
@@ -35,3 +27,6 @@ if (require.main === module) {
         console.log(`Serveur en écoute sur le port ${PORT}`);
     });
 }
+
+
+module.exports = app;
