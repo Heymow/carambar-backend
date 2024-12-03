@@ -9,7 +9,8 @@
     "migrate": "sequelize-cli db:migrate",
     "migrate:rollback": "sequelize-cli db:migrate:undo",
     "seed": "sequelize-cli db:seed:all",
-    "cleardb": "sequelize-cli db:migrate:undo:all"
+    "cleardb": "sequelize-cli db:migrate:undo:all",
+    "postbuild": "yarn migrate && yarn seed"
   },
   "keywords": [],
   "author": "",
