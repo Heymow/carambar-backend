@@ -15,7 +15,7 @@ const swaggerOptions = {
             version: '1.0.0',
             description: 'Une API pour gérer et afficher des blagues Carambar.'
         },
-        servers: [{ url: 'http://localhost:3000' }]
+        servers: [{ url: process.env.SITE_URL_PROD }]
     },
     apis: ['./routes/jokes.js'],
 };
