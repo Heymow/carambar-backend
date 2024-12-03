@@ -29,6 +29,12 @@ Avant de commencer, assurez-vous d’avoir installé :
 ### 3. **Initialisation de la base de données sur Render**
 Render utilisera automatiquement le fichier `dbInit.js` pour créer et remplir la base si vous n'avez pas de disque monté.
 
+### 4. **Configurer l'environnement**
+- Dans l'onglet 'Environnement' de Render, ajouter la variable correspondant à l'URL de votre déploiement :
+  ```env
+  SITE_URL_PROD=http://<votre-url-de-déploiement-render>
+  ```
+
 ---
 
 ## **Installation en local**
