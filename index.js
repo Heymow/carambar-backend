@@ -1,9 +1,9 @@
 const express = require('express');
 require('dotenv').config();
 const jokeRouter = require('./routes/jokes');
-const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocs = require('./init/swaggerConfig');
+const { initializeDatabase } = require('./init/dbInit');
 
 const app = express();
 app.use(express.json());
