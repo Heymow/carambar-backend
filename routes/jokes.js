@@ -1,51 +1,120 @@
 const express = require('express');
-const { sequelize, Joke } = require('../models');
 const router = express.Router();
+const jokeController = require('../controllers/jokeController');
 
 // ajouter une blague
-router.post('/', async (req, res) => {
-    try {
-        const { content } = req.body;
-        if (!content || content.trim() === '') {
-            return res.status(400).json({ error: 'Le contenu est manquant ou vide' });
-        }
-        const joke = await Joke.create({ content: req.body.content });
-        res.status(201).json(joke);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+/**
+ * @swagger
+ * /jokes:
+ *   post:
+ *     summary: Ajouter une nouvelle blague
+ *     tags:
+ *       - Blagues
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               content:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Blague créée
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 content:
+ *                   type: string
+ */
+router.post('/', jokeController.addJoke);
+
 
 // consulter toutes les blagues
-router.get('/', async (req, res) => {
-    try {
-        const jokes = await Joke.findAll();
-        res.status(200).json(jokes);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+/**
+ * @swagger
+ * /jokes:
+ *   get:
+ *     summary: Consulter toutes les blagues
+ *     tags:
+ *       - Blagues
+ *     responses:
+ *       200:
+ *         description: Liste de toutes les blagues
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: integer
+ *                   content:
+ *                     type: string
+ */
+router.get('/', jokeController.getAllJokes);
 
 
 // consulter une blague aléatoire
-router.get('/random', async (req, res) => {
-    try {
-        const joke = await Joke.findOne({ order: sequelize.random() });
-        res.json(joke);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+/**
+ * @swagger
+ * /jokes/random:
+ *   get:
+ *     summary: Consulter une blague aléatoire
+ *     tags:
+ *       - Blagues
+ *     responses:
+ *       200:
+ *         description: Blague aléatoire
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 content:
+ *                   type: string
+ */
+router.get('/random', jokeController.getRandomJoke);
+
 
 // consulter une blague par son id
-router.get('/:id', async (req, res) => {
-    try {
-        const joke = await Joke.findByPk(req.params.id);
-        if (!joke) return res.status(404).json({ error: 'Blague non trouvée' });
-        res.json(joke);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-});
+/**
+ * @swagger
+ * /jokes/{id}:
+ *   get:
+ *     summary: Consulter une blague par ID
+ *     tags:
+ *       - Blagues
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *         description: ID de la blague
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Blague trouvée
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: integer
+ *                 content:
+ *                   type: string
+ *       404:
+ *         description: Blague non trouvée
+ */
+router.get('/:id', jokeController.getJokeById);
 
 module.exports = router;

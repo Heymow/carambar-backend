@@ -1,8 +1,26 @@
 const express = require('express');
+require('dotenv').config();
 const jokeRouter = require('./routes/jokes');
+const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const app = express();
 app.use(express.json());
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'API Blagues Carambar',
+            version: '1.0.0',
+            description: 'Une API pour gérer et afficher des blagues Carambar.'
+        },
+        servers: [{ url: 'http://localhost:3000' }]
+    },
+    apis: ['./routes/jokes.js'],
+};
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use('/jokes', jokeRouter);
 
