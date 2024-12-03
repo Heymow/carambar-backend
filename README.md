@@ -5,14 +5,6 @@ Une API pour gérer et afficher des blagues Carambar, développée avec Node.js,
 
 ---
 
-## **Prérequis**
-Avant de commencer, assurez-vous d’avoir installé :
-- **Node.js**
-- **Yarn**
-- **Git**
-
----
-
 ## **Déploiement sur Render**
 
 ### 1. **Créer un compte Render**
@@ -38,6 +30,14 @@ Render utilisera automatiquement le fichier `dbInit.js` pour créer et remplir l
 ---
 
 ## **Installation en local**
+
+## **Prérequis**
+Avant de commencer, assurez-vous d’avoir installé :
+- **Node.js**
+- **Yarn**
+- **Git**
+
+---
 
 ### 1. **Cloner le dépôt**
 ```bash
