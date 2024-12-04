@@ -9,6 +9,7 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
+app.options('*', cors());
 app.use(express.json());
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
@@ -29,6 +30,10 @@ if (require.main === module) {
         console.log(`Serveur en écoute sur le port ${PORT}`);
     });
 }
+
+app.use((req, res) => {
+    res.status(404).json({ error: 'Route non trouvée' });
+});
 
 
 module.exports = app;
