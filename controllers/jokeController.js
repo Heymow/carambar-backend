@@ -9,8 +9,8 @@ exports.addJoke = async (req, res) => {
         if (!content || content.trim() === '') {
             return res.status(400).json({ error: 'Le contenu est manquant ou vide' });
         }
-        if (content.length > 255) {
-            return res.status(400).json({ error: 'La blague ne peut pas dépasser 255 caractères.' });
+        if (content.length > 100) {
+            return res.status(400).json({ error: 'La blague ne peut pas dépasser 100 caractères.' });
         }
         // création de la blague
         const joke = await Joke.create({ content: req.body.content });
