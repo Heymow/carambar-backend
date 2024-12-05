@@ -5,7 +5,7 @@ Une API pour gérer et afficher des blagues Carambar, développée avec Node.js,
 
 ---
 
-Documentation : [Swagger](carambar-backend.onrender.com/api-docs)
+Documentation : [Swagger](https://carambar-backend.onrender.com/api-docs)
 
 ---
 
